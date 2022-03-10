@@ -16,10 +16,10 @@ public class UnsplashService {
     @Autowired
     WebClient webClient;
 
-    public Flux<Photo> getPhotos(String searchText) {
+    public Flux<Photo> getPhotos(String searchText, String orientation) {
         return getTotalPages(searchText)
                 .flatMapMany(t -> Flux.range(1, t > 5 ? 5 : t))
-                .flatMap(f -> searchUnsplash(searchText, f)
+                .flatMap(f -> searchUnsplash(searchText, f, orientation)
                         .flatMapIterable(UnsplashResponse::getResults), 5);
     }
 
@@ -34,11 +34,12 @@ public class UnsplashService {
                 .map(Integer::valueOf);
     }
 
-    public Mono<UnsplashResponse> searchUnsplash( String searchText, int pageNumber) {
+    public Mono<UnsplashResponse> searchUnsplash( String searchText, int pageNumber, String orientation) {
         return webClient.get()
                 .uri(uri -> uri
                         .queryParam("page", pageNumber)
                         .queryParam("query", searchText)
+                        .queryParam("orientation", orientation)
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()

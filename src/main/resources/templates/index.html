@@ -16,19 +16,27 @@
   <div class="row justify-content-center mb-4">
     <form class="col-6" th:action="@{/search}" th:object="${searchKeyword}" method="post">
       <div class="input-group">
+        <select th:name="orientation" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+          <option value="squarish">Squarish</option>
+        </select>
         <span class="input-group-text">Keywords:</span>
         <input type="text" class="form-control" th:field="*{text}" th:value="${searchText}">
         <button class="btn btn-info" type="submit">Search!</button>
       </div>
     </form>
   </div>
-  <div class="row justify-content-center" data-masonry='{"percentPosition": true }'>
-    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 d-flex justify-content-center" th:each="photo : ${photos}">
+  <div class="row justify-content-center">
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 d-flex justify-content-center" th:each="photo : ${photos}" th:if="${not #lists.isEmpty(photos)}">
       <img class="rounded img-fluid" th:src="${photo.urls.thumb}" th:alt="${photo.description}">
+    </div>
+    <div th:if="${not #lists.isEmpty(photos)}" align="center">
+      <h3 >No images found!!</h3>
+      <a th:href="@{/}"> <button type="button" class="btn btn-primary btn-lg" >continue searching</button>
+      </a>
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 </body>
 </html>

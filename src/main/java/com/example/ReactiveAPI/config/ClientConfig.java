@@ -1,5 +1,6 @@
 package com.example.ReactiveAPI.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,19 +12,43 @@ import java.net.URI;
 @Configuration
 public class ClientConfig {
 
-    @Value("${search.uri}")
-    private URI searchUri;
+    @Value("${search.uri.unsplash}")
+    private URI unsplashSearchUri;
 
-    @Value("${api.client-id}")
-    private String secret;
+    @Value("${api.key.unsplash}")
+    private String unsplashSecret;
+
+    @Value("${search.uri.pexel}")
+    private URI pexelSearchUri;
+
+    @Value("${api.key.pexel}")
+    private String pexelSecret;
+
+
 
     @Bean
+    @Qualifier("unsplash")
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl(searchUri.toString())
-                .defaultHeader(HttpHeaders.AUTHORIZATION, secret)
+                .baseUrl(unsplashSearchUri.toString())
+                .defaultHeader(HttpHeaders.AUTHORIZATION, unsplashSecret)
                 .build();
     }
+
+
+    @Bean
+    @Qualifier("pexel")
+    public WebClient webClient2() {
+        return WebClient.builder()
+                .baseUrl(pexelSearchUri.toString())
+                .defaultHeader(HttpHeaders.AUTHORIZATION, pexelSecret)
+                .build();
+    }
+
+
+
+
+
 
 
 }
