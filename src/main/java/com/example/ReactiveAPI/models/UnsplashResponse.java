@@ -19,6 +19,4 @@ public class UnsplashResponse {
     private Integer totalPages;
     private List<Photo> results;
 
-
-
 }

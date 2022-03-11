@@ -1,6 +1,7 @@
 package com.example.ReactiveAPI.controllers;
 
 import com.example.ReactiveAPI.models.SearchKeyword;
+import com.example.ReactiveAPI.service.PexelService;
 import com.example.ReactiveAPI.service.UnsplashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class ViewController {
     @Autowired
     UnsplashService unsplashService;
 
+    @Autowired
+    PexelService pexelService;
+
     @GetMapping("/")
     public String displayIndex(Model model) {
         model.addAttribute("searchKeyword", new SearchKeyword());
@@ -32,4 +36,24 @@ public class ViewController {
         model.addAttribute("searchText", searchKeyword.getText());
         return "index";
     }
+
+
+    @GetMapping("/pexel")
+    public String displayIndex2(Model model) {
+        model.addAttribute("searchKeyword", new SearchKeyword());
+        return "index2";
+    }
+
+    @PostMapping("/search/pexel")
+    public String performSearch2(@ModelAttribute("searchKeyword") SearchKeyword searchKeyword, Model model,
+                                @RequestParam(value = "orientation",required = false ) String orientation) {
+        ReactiveDataDriverContextVariable reactiveData =
+                new ReactiveDataDriverContextVariable(pexelService.getImages(searchKeyword.getText(),orientation), 1);
+        model.addAttribute("images", reactiveData);
+        model.addAttribute("searchText", searchKeyword.getText());
+        return "index2";
+    }
+
+
+
 }
