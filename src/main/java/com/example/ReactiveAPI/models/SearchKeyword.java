@@ -10,5 +10,6 @@ import lombok.Setter;
 public class SearchKeyword {
 
     private String text;
-
+    private String orientation;
+    private String selection;
 }

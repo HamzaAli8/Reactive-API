@@ -15,7 +15,8 @@ public class Images {
     private Integer id;
     private Integer width;
     private Integer height;
-    private String url;
+    @JsonProperty("url")
+    private String description;
     private String photographer;
     @JsonProperty("photographer_url")
     private String photographerUrl;
@@ -23,6 +24,7 @@ public class Images {
     private Integer photographerId;
     @JsonProperty("avg_color")
     private String avgColor;
-    private Src src;
+    @JsonProperty("src")
+    private Src urls;
 
 }
