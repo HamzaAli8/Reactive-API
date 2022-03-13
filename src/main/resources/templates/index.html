@@ -49,13 +49,12 @@
   <div class="row justify-content-center">
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 d-flex justify-content-center" th:each="photo : ${photos}" th:if="${not #lists.isEmpty(photos)}">
     <img class="rounded img-fluid" th:src="${photo.urls.thumb}" th:alt="${photo.description}">
-<!--      <img class="rounded img-fluid" th:src="${photo.src.tiny}" th:alt="${photo.url}">-->
     </div>
-    <div th:unless="${ not #lists.isEmpty(photos)}" align="center">
-      <h3 >No images found!!</h3>
-      <a th:href="@{/}"> <button type="button" class="btn btn-primary btn-lg" >continue searching</button>
-      </a>
-    </div>
+  </div>
+  <div th:if="${#lists.isEmpty(photos)}" align="center">
+    <h5 >No images found!!</h5>
+    <a th:href="@{/}"> <button type="button" class="btn btn-primary btn-lg" >continue searching</button>
+    </a>
   </div>
 </div>
 </body>
