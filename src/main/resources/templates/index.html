@@ -8,7 +8,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<div class="topCorner"><a href="https://www.pexels.com">Photos provided by Pexels</a></div>
+<div class="topCorner" th:if="${pexel}"><a href="https://www.pexels.com">Photos provided by Pexels</a></div>
 <style type="text/css">
  .topCorner{
    position:absolute;
@@ -22,7 +22,7 @@
     <div class="col-6"><h4>Photo Search:</h4></div>
   </div>
   <div class="row justify-content-center mb-4">
-    <form class="col-6" th:action="@{/search}" th:object="${searchKeyword}" method="post">
+    <form class="col-6" th:action="@{/search}" th:object="${searchInfo}" method="post">
       <div class="input-group">
         <select th:field="*{orientation}" class="form-select form-select-sm" aria-label=".form-select-sm example">
           <option value="landscape">Landscape</option>
@@ -48,7 +48,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2 d-flex justify-content-center" th:each="photo : ${photos}" th:if="${not #lists.isEmpty(photos)}">
-    <img class="rounded img-fluid" th:src="${photo.urls.thumb}" th:alt="${photo.description}">
+    <img class="rounded img-fluid" th:src="${photo.url}" th:alt="${photo.description}">
     </div>
   </div>
   <div th:if="${#lists.isEmpty(photos)}" align="center">

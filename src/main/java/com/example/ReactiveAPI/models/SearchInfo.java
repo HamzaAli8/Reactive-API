@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SearchKeyword {
+public class SearchInfo {
 
     private String text;
     private String orientation;
